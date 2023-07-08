@@ -18,6 +18,7 @@ int main(int argc, char** argv) {
 
 
     int n = abs(dist(eng) % 200000) + 1;
+    // int n = 10000;
     std::vector<ll> arr(n);
 
     if(argc == 2) {
@@ -26,8 +27,10 @@ int main(int argc, char** argv) {
     // small chance of being in a series, so we need to generate 
     // some amount of matching solutions per testcase.
 
-    //Typically, we would do this if we have argv[1] % 6 == 0. 
-    //Otherwise, there is no need to do this.
+    //Typically, we would do this if we have argv[1] % 6 == 0,
+    //in which, generator maker will call this program with two
+    //arguments. Otherwise, there is no need to do this.
+    
         arr[0] = (dist(eng) % (ll) 1e9);
         ll distance = (dist(eng) % (ll) 1e9);
 
@@ -74,4 +77,32 @@ int main(int argc, char** argv) {
 
     return 0;
 }
+
+/*
+Sample Input 0
+
+4
+5 10 15 20
+Sample Output 0
+
+5
+Explanation 0
+
+In the first sample, we see that
+
+which means that they create an addition series with difference of 5 in-between. Thus, we return .
+
+Sample Input 1
+
+4
+3 6 7 9
+Sample Output 1
+
+-1
+Explanation 1
+
+In the second example, we see that
+
+Which means, it does not form an addition series. Thus, we return .
+*/
  

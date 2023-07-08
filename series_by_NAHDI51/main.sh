@@ -18,7 +18,7 @@ TESTCASE_GENERATOR='generator.cpp'
 PROGRAM_FILE='solve.cpp'
 
 # The number of testcases you want to generate
-TOTAL_CASES=30
+TOTAL_CASES=10
 
 
 mkdir -p "$DESTINATION_FOLDER/input"
@@ -38,8 +38,7 @@ EXEC_TESTCASE_GENERATOR="$TESTCASE_GENERATOR.build"
 g++ -std=c++11 $TESTCASE_GENERATOR -o "$EXEC_TESTCASE_GENERATOR"
 prompt -s "Done.\n"
 
-for (( i=1; i<=TOTAL_CASES; i++ )) {
-
+for (( i=0; i<TOTAL_CASES; i++ )) {
     prompt -w "Generating input$(printf "%02d" $i)... "
     # Create and generate input
     INPUT_FILE="$DESTINATION_FOLDER/input/input$(printf "%02d" $i).txt"
@@ -49,12 +48,12 @@ for (( i=1; i<=TOTAL_CASES; i++ )) {
     # You can apply custom logics for delimiting the generator
     ############################################################
     
-    # if (( $i % 6 == 0 )); then
-    #     ./$EXEC_TESTCASE_GENERATOR $i >> $INPUT_FILE
-    # else
-    #     ./$EXEC_TESTCASE_GENERATOR >> $INPUT_FILE
-    # fi
-    ./$EXEC_TESTCASE_GENERATOR >> $INPUT_FILE
+    if (( $i % 3 == 0 )); then
+        ./$EXEC_TESTCASE_GENERATOR $i >> $INPUT_FILE
+    else
+        ./$EXEC_TESTCASE_GENERATOR >> $INPUT_FILE
+    fi
+    # ./$EXEC_TESTCASE_GENERATOR >> $INPUT_FILE
 
     prompt -s "Done.\n"
 
@@ -81,12 +80,20 @@ for (( i=1; i<=TOTAL_CASES; i++ )) {
 
 }
 rm -rf "$TMP_INPUT"
+
+PREV_DIR=$(pwd)
+cd "$DESTINATION_FOLDER"
+
 # Zip the folder
-zip -r "$DESTINATION_FOLDER.zip" "$DESTINATION_FOLDER"
+zip -r "../$DESTINATION_FOLDER.zip" input output
 # the zipped file is what you submit in your hackerrank submission.
 
-
 # Remote the redundant files. You can specify your needs here.
+cd $PREV_DIR
 rm $EXEC_PROGRAM_FILE $EXEC_TESTCASE_GENERATOR
 
 prompt -s "All done.\n"
+
+###################################
+## HACKERRANK IS FUCKING BROKEN
+##################################
